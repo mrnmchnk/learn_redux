@@ -2,13 +2,16 @@ import './App.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCustomerAction, removeCustomerAction } from './store/customerReducer';
 import { fetchCustomers } from './asyncaction/customers';
+import { addAsyncCashAction, getAsyncCashAction } from './store/cashReducer';
+import { fetchUsers } from './store/userReducer';
 
 function App() {
 
   const dispatch = useDispatch()
   const cash = useSelector(state => state.cash.cash)
-  const customers = useSelector(state => state.customers.customers)
   console.log(cash)
+  const customers = useSelector(state => state.customers.customers)
+  console.log(customers)
   
   const addCash = (cash) => {
     dispatch({type: 'ADD_CASH', payload: cash})
@@ -34,12 +37,16 @@ function App() {
     <div className="App">
       <div style={{fontSize: '3rem'}} >{cash}</div>
       <div className='addGetButtons'>
-        <button onClick={() => addCash(+prompt())} className='bbbutton' >Пополнить счет</button>
-        <button onClick={() => getCash(+prompt())} className='bbbutton'>Снять со счета</button>
-        <button onClick={() => addCustomer(prompt())} className='bbbutton'>Добавить клиента</button>
-        <button onClick={() => dispatch(fetchCustomers())} className='bbbutton'>Получить список клиентов</button>
+        <button onClick={() => addCash(1)} className='bbbutton' >Инкремент</button>
+        <button onClick={() => getCash(1)} className='bbbutton'>Декремент</button>
+        <button onClick={() => dispatch(addAsyncCashAction())} className='bbbutton' >Пополнить с задержкой</button> 
+        <button onClick={() => dispatch(getAsyncCashAction())} className='bbbutton'>Снять с задержкой</button>
+        <button onClick={() => addCustomer(prompt())} className='bbbutton'>Добавить клиента</button> 
+        {/* <button onClick={() => dispatch(fetchCustomers())} className='bbbutton'>Получить список клиентов</button> // асинхронная*/} 
+        {/* <button onClick={() => dispatch(fetchUsers())} className='bbbutton'>Получить список клиентов</button> // через сагу, не работает */} 
+        <button onClick={() => dispatch(fetchUsers())} className='bbbutton'>Получить список клиентов</button>
       </div>
-      { customers.length > 0
+      {customers.length > 0
         ?
         <div style={{marginTop: 30, fontSize: '1.5rem'}}>
           {customers.map( customer => {
