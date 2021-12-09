@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: sans-serif;
 }
 
 .App-logo {
@@ -35,4 +36,22 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.addGetButtons {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 60%;
+}
+
+.bbbutton {
+  font-size: 1rem;
+  color: white;
+  padding: 10px;
+  margin-right: 10px;
+  background: #2491af;
+  border: none;
+  border-radius: 10px;
 }
